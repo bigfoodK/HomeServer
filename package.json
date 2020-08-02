@@ -1,0 +1,64 @@
+{
+  "name": "homeserver",
+  "version": "1.0.0",
+  "description": "My home server",
+  "main": "dist/server/server.js",
+  "scripts": {
+    "start": "node .",
+    "start-watch": "nodemon .",
+    "build": "tsc && parcel build src/client/index.html --out-dir dist/public",
+    "build-server": "tsc",
+    "build-server-watch": "tsc --watch",
+    "build-client": "parcel build src/client/index.html --out-dir dist/public",
+    "build-client-watch": "parcel watch src/client/index.html --out-dir dist/public",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bigfoodK/HomeServer.git"
+  },
+  "author": "bigfood",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bigfoodK/HomeServer/issues"
+  },
+  "homepage": "https://github.com/bigfoodK/HomeServer#readme",
+  "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@types/bcrypt": "^3.0.0",
+    "@types/fs-extra": "^9.0.1",
+    "@types/js-cookie": "^2.2.6",
+    "@types/jsonwebtoken": "^8.5.0",
+    "@types/koa": "^2.11.3",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-router": "^7.4.1",
+    "@types/koa-sslify": "^4.0.1",
+    "@types/koa-static": "^4.0.1",
+    "@types/react-redux": "^7.1.9",
+    "@types/uuid": "^8.0.0",
+    "bcrypt": "^5.0.0",
+    "dotenv": "^8.2.0",
+    "fs-extra": "^9.0.1",
+    "immutable": "^4.0.0-rc.12",
+    "js-cookie": "^2.2.1",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.13.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^9.1.0",
+    "koa-sslify": "^4.0.3",
+    "koa-static": "^5.0.0",
+    "level-ts": "^2.0.5",
+    "notistack": "^0.9.17",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.1",
+    "redux": "^4.0.5",
+    "typescript": "^3.9.7",
+    "uuid": "^8.3.0"
+  },
+  "devDependencies": {
+    "cssnano": "^4.1.10",
+    "nodemon": "^2.0.4"
+  }
+}
