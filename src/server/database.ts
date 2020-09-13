@@ -15,7 +15,7 @@ class Database {
 
     this.name = name;
 
-    this.prefix = parent ? `${parent.prefix}.${name}` : `${name}.`;
+    this.prefix = parent ? `${parent.prefix}${name}.` : `${name}.`;
   }
 
   public readonly name: string;
@@ -52,29 +52,36 @@ class Database {
     keys: true;
     values: true;
   }>) {
-    const {
-      gt,
-      gte,
-      lt,
-      lte,
-      all,
-      reverse,
-      limit,
-      keys,
-      values,
-    } = option;
+    const needPrefix = [
+      'gt',
+      'gte',
+      'lt',
+      'lte',
+      'all',
+    ];
 
+    const prefixedOption = Object.entries(option).reduce((previous, [key, value], ) => {
+      if (needPrefix.includes(key)) {
+        const objectToAdd = {} as any;
+        objectToAdd[key] = this.prefix + value;
+        return { ...previous, ...objectToAdd };
+      }
+      return previous;
+    }, {}) as typeof option;
+
+    return (db as level<Result>).stream(prefixedOption);
+  }
+
+  public async exists<Result = any>(key: string) {
+    return db.exists(this.prefix + key);
+  }
+
+  public async all<Result = any>() {
     return (db as level<Result>).stream({
-      gt: gt ? this.prefix + gt : gt,
-      gte: gte ? this.prefix + gte : gte,
-      lt: lt ? this.prefix + lt : lt,
-      lte: lte ? this.prefix + lte : lte,
-      all: all ? this.prefix + all : all,
-      reverse,
-      limit,
-      keys,
-      values,
-    });
+      all: this.prefix,
+      values: true,
+      keys: false,
+    })
   }
 }
 

@@ -1,8 +1,10 @@
 import React from 'react';
-import { Grid, createMuiTheme, ThemeProvider } from '@material-ui/core';
+import { createMuiTheme, ThemeProvider, Typography, Toolbar } from '@material-ui/core';
 import { blueGrey, blue } from '@material-ui/core/colors';
 import ApplicationBar from './components/ApplicationBar';
 import { SnackbarProvider } from 'notistack';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Admin from './components/Admin';
 
 export default function App() {
   const theme = createMuiTheme({
@@ -23,10 +25,18 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <SnackbarProvider maxSnack={5}>
-        <ApplicationBar />
-        <Grid container spacing={2}>
-          hi
-      </Grid>
+        <Router>
+          <ApplicationBar />
+          <Toolbar />
+          <Switch>
+            <Route exact path="/">
+              <Typography>Hi!</Typography>
+            </Route>
+            <Route path="/admin">
+              <Admin />
+            </Route>
+          </Switch>
+        </Router>
       </SnackbarProvider>
     </ThemeProvider>
   );

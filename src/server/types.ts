@@ -1,5 +1,5 @@
-import { Account } from './account/types'
 import { ParameterizedContext } from 'koa'
+import { Account } from '../common/permission/types';
 
 type CustomState = {
   account?: Account;

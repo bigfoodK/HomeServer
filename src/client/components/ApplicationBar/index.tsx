@@ -6,6 +6,7 @@ import { LockOpen, Lock } from '@material-ui/icons'
 import LoginDialog from './LoginDialog';
 import Actions from '../../redux/actions';
 import { dispatch } from '../../redux/store';
+import { Link } from 'react-router-dom';
 
 export default function ApplicationBar() {
   const account = useSelector((state: State) => state.account);
@@ -19,9 +20,14 @@ export default function ApplicationBar() {
     <AppBar>
       <Toolbar>
         <Grid container>
-          <Grid item xs>
-            <Button>
+          <Grid item>
+            <Button component={Link} to="/" >
               <Typography>Home</Typography>
+            </Button>
+          </Grid>
+          <Grid item xs>
+            <Button component={Link} to="/admin" >
+              <Typography>Admin</Typography>
             </Button>
           </Grid>
           <Grid item>

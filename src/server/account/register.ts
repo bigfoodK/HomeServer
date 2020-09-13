@@ -1,8 +1,10 @@
 import { uuid } from '../../common/util/uuid';
-import { Account } from './types';
-import { accountDatabase, internalIdDatabase, encryptedPasswordDatabase } from './accountDatabases';
+import { accountsDatabase, internalIdDatabase, encryptedPasswordDatabase } from './accountDatabases';
 import bcrypt from 'bcrypt';
 import config from '../config';
+import addAccountToGroup from './addAccountToGroup';
+import { getDefaultGroupInternalId } from './defaultGroup';
+import { Account } from '../../common/permission/types';
 
 export type RegisterError =
   'Id already exist'
@@ -38,12 +40,16 @@ export default async function register(params: {
 
     encryptedPasswordDatabase.put<string>(internalId, encryptedPassword),
 
-    accountDatabase.put<Account>(internalId, {
+    accountsDatabase.put<Account>(internalId, {
+      type: 'account',
       createdAt: Date.now(),
       id,
       nickname,
       internalId,
     }),
+
+    getDefaultGroupInternalId()
+      .then(defaultGroupInternalId => addAccountToGroup(internalId, defaultGroupInternalId)),
   ]);
 
   return {

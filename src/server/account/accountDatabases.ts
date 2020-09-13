@@ -1,10 +1,16 @@
 import database from '../database';
 
-const root = database.getSubDatabase('Account')
+export const accountDatabase = database.getSubDatabase('Account')
 
-export const accountDatabase = root.getSubDatabase('account');
+export const accountsDatabase = accountDatabase.getSubDatabase('accounts');
 
-export const internalIdDatabase = root.getSubDatabase('internalId');
+export const internalIdDatabase = accountDatabase.getSubDatabase('internalId');
 
-export const encryptedPasswordDatabase = root.getSubDatabase('encryptedPassword');
+export const encryptedPasswordDatabase = accountDatabase.getSubDatabase('encryptedPassword');
+
+export const groupsDatabase = accountDatabase.getSubDatabase('groups');
+
+export const groupsContainingAccountDatabase = accountDatabase.getSubDatabase('groupsContainingAccount');
+
+export const accountsInGroupDatabase = accountDatabase.getSubDatabase('accountsInGroup');
 

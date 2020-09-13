@@ -1,7 +1,7 @@
-import { accountDatabase } from './accountDatabases';
-import { Account } from './types';
+import { accountsDatabase } from './accountDatabases';
+import { Account } from '../../common/permission/types';
 
 export default async function getAccount(internalId: string) {
-  return await accountDatabase.get<Account>(internalId)
+  return await accountsDatabase.get<Account>(internalId)
     .catch(() => null);
 }

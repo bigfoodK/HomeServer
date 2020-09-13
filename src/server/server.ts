@@ -9,6 +9,9 @@ import serve from 'koa-static';
 import { join } from 'path';
 import bodyParser from 'koa-bodyparser';
 import authenticate from './authenticate';
+import initAccount from './account/initAccount';
+import initPermission from './permission/initPermission';
+import authorization from './authorization';
 
 class Server {
   private app: koa = new koa();
@@ -39,7 +42,13 @@ class Server {
       }
     }
 
+    await initAccount();
+
+    await initPermission();
+
     this.app.use(authenticate);
+
+    this.app.use(authorization);
 
     this.app.use(bodyParser());
 
