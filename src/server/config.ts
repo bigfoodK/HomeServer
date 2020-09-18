@@ -21,4 +21,5 @@ export default {
   saltRound: parseInt(getEnv('SALT_ROUND') || '10'),
   jwtKey: getEnv('JWT_KEY', true) || '',
   jwtExpiresIn: getEnv('JWT_EXPIRES_IN') || '30d',
+  explorerRootPath: getEnv('EXPLORER_ROOT_PATH') || join(__dirname, '../../explorerRoot'),
 } as const;

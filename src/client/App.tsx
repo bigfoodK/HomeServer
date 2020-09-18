@@ -5,6 +5,7 @@ import ApplicationBar from './components/ApplicationBar';
 import { SnackbarProvider } from 'notistack';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Admin from './components/Admin';
+import Explorer from './components/Explorer';
 
 export default function App() {
   const theme = createMuiTheme({
@@ -32,6 +33,7 @@ export default function App() {
             <Route exact path="/">
               <Typography>Hi!</Typography>
             </Route>
+            <Route path="/explorer/:viewer/:path*" component={Explorer} />
             <Route path="/admin">
               <Admin />
             </Route>

@@ -12,6 +12,8 @@ import authenticate from './authenticate';
 import initAccount from './account/initAccount';
 import initPermission from './permission/initPermission';
 import authorization from './authorization';
+import initExplorer from './explorer/initExplorer';
+import mount from 'koa-mount';
 
 class Server {
   private app: koa = new koa();
@@ -46,6 +48,8 @@ class Server {
 
     await initPermission();
 
+    await initExplorer();
+
     this.app.use(authenticate);
 
     this.app.use(authorization);
@@ -61,6 +65,7 @@ class Server {
 
     this.app.use(serve(join(__dirname, '../public')));
 
+    this.app.use(mount('/explorerRoot', serve(config.explorerRootPath)));
   }
 
   public start() {

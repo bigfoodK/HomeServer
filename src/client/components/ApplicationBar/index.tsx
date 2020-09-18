@@ -25,6 +25,11 @@ export default function ApplicationBar() {
               <Typography>Home</Typography>
             </Button>
           </Grid>
+          <Grid item>
+            <Button component={Link} to="/explorer/browser" >
+              <Typography>Browser</Typography>
+            </Button>
+          </Grid>
           <Grid item xs>
             <Button component={Link} to="/admin" >
               <Typography>Admin</Typography>
