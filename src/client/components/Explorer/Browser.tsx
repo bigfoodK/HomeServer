@@ -17,7 +17,7 @@ function getProperLink(direcotryEntry: DirectoryEntry, path: string[]) {
     } break;
 
     default: {
-      return `/explorer/download/${pathToEntry}`;
+      return `/explorerRoot/${pathToEntry}`;
     } break;
   }
 }
@@ -67,8 +67,16 @@ export default function Browser(props: BrowserProps) {
                     <ListItem
                       key={link}
                       button
-                      component={Link}
+                      component={direcotryEntry.type === 'file' ? undefined : Link}
                       to={link}
+                      onClick={() => {
+                        if (direcotryEntry.type !== 'file') {
+                          return;
+                        }
+                        const aElement = document.createElement('a')
+                        aElement.href = link;
+                        aElement.click();
+                      }}
                     >
                       <ListItemAvatar>
                         <Avatar>
