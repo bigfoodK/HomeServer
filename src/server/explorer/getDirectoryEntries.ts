@@ -1,7 +1,21 @@
-import { posix, join } from 'path';
+import { posix, join, extname } from 'path';
 import config from '../config';
 import { promises as fs } from 'fs';
-import { DirectoryEntry } from '../../common/explorer/types';
+import { DirectoryEntry, DirectoryEntryType } from '../../common/explorer/types';
+
+function getType(name: string): DirectoryEntryType {
+  const extName = extname(name);
+  switch (extName) {
+    case '.mkv':
+    case '.mp4': {
+      return 'video';
+    } break;
+  
+    default: {
+      return 'file';
+    } break;
+  }
+}
 
 export default async function getDirectoryEntries(path: string) {
   const normalizedPath = posix.normalize(path);
@@ -15,7 +29,7 @@ export default async function getDirectoryEntries(path: string) {
   return dirEntries.map(dirent => {
     return {
       name: dirent.name,
-      type: dirent.isDirectory() ? 'directory' : 'file',
+      type: dirent.isDirectory() ? 'directory' : getType(dirent.name),
     } as DirectoryEntry;
   })
 }

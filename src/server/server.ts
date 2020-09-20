@@ -14,6 +14,7 @@ import initPermission from './permission/initPermission';
 import authorization from './authorization';
 import initExplorer from './explorer/initExplorer';
 import mount from 'koa-mount';
+import range from 'koa-range';
 
 class Server {
   private app: koa = new koa();
@@ -49,6 +50,8 @@ class Server {
     await initPermission();
 
     await initExplorer();
+
+    this.app.use(range);
 
     this.app.use(authenticate);
 

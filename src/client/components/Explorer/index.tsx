@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Grid } from '@material-ui/core'
 import AddressBar from './AddressBar';
 import Browser from './Browser';
+import VideoPlayer from './VideoPlayer';
 
 export default function Explorer() {
   return (
@@ -14,6 +15,7 @@ export default function Explorer() {
           <Route path="/explorer/:viewer/:path*" component={AddressBar} />
           <Switch>
             <Route path="/explorer/browser/:path*" component={Browser} />
+            <Route path="/explorer/videoPlayer/:path*" component={VideoPlayer} />
           </Switch>
         </Router>
     </Grid>

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Card, CardContent, List, ListItem, ListItemAvatar, Avatar, ListItemText } from '@material-ui/core';
-import { DirectoryEntry } from '../../../common/explorer/types';
+import { DirectoryEntry, DirectoryEntryType } from '../../../common/explorer/types';
 import getDirectoryEntries from '../../restAPI/explorer/getDirectoryEntries';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Folder, InsertDriveFile, Block } from '@material-ui/icons';
+import { Folder, InsertDriveFile, Block, Movie } from '@material-ui/icons';
 
 type BrowserProps = RouteComponentProps<{
   path?: string;
@@ -16,8 +16,28 @@ function getProperLink(direcotryEntry: DirectoryEntry, path: string[]) {
       return `/explorer/browser/${pathToEntry}`;
     } break;
 
+    case 'video': {      
+      return `/explorer/videoPlayer/${pathToEntry}`;
+    } break;
+
     default: {
       return `/explorerRoot/${pathToEntry}`;
+    } break;
+  }
+}
+
+function getIcon(directoryEntryType: DirectoryEntryType) {
+  switch (directoryEntryType) {
+    case 'directory': {
+      return <Folder />;
+    } break;
+
+    case 'video': {
+      return <Movie />;
+    } break;
+  
+    default: {
+      return <InsertDriveFile />;
     } break;
   }
 }
@@ -80,7 +100,7 @@ export default function Browser(props: BrowserProps) {
                     >
                       <ListItemAvatar>
                         <Avatar>
-                          {direcotryEntry.type === 'directory' ? <Folder /> : <InsertDriveFile />}
+                          {getIcon(direcotryEntry.type)}
                         </Avatar>
                       </ListItemAvatar>
                       <ListItemText primary={direcotryEntry.name} />
